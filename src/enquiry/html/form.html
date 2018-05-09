@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Form 1 enquiry</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<style media="screen">
+body{
+  background-color: silver
+}
+* {
+    box-sizing: border-box;
+}
+
+input[type=text] select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+input[type=date]{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+.col-50{
+  float:left;
+  width:50%;
+  margin-top:7px;
+}
+.col-30{
+  float:left;
+  width:50%;
+  margin-top:7px;
+  padding:30px;
+  margin:30px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 80%;
+        margin-top: 0;
+    }
+}
+.main{
+  height:40px;
+  padding:6% 0 0;
+  margin:auto 180px;
+  font-size:20px;
+  font-style: bold;
+}
+  .login{
+    background-color: seashell
+    width:380px;
+    padding:2% 0 0;
+    margin:auto
+  }
+  .form1{    background: aliceblue;
+    position:relative;
+    z-index:1;
+    max-width:380px;
+    margin:0 auto 100px;
+    padding:60px;
+    text-align:center;
+    box-shadow: 0 0 20px 0
+
+  }
+  .form1 label , .form1 input {
+    float:none;
+    display:inline-block;
+    vertical-align: middle
+  }
+  button {
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+  }
+  header {
+    padding:10px
+  }
+  button{
+    margin:15px;
+    padding:10px;
+  }
+
+</style>
+  </head>
+  <body>
+    <header style="background:white;float:right;" id="a2">
+      <input type="submit"   style="background:green;margin:5px" value="Assigned  Queue" >
+<input type="submit"  style="background:red;margin:5px"  v-on:click="logout()" value="logout">
+  </header>
+    <div id="form" >
+      <form v-on:submit.prevent="onSubmit"  class="container">
+      <p style="align-items:center;justify-content:center;display:flex"><b>FORM1 ENQUIRY HANDLING</b></p>
+        <div class='row'>
+         <div class="col-25">
+        <label>Mode of Enquiry</label>
+      </div>
+      <div class="col-75">
+        <select v-model="mode">
+          <option value="Tender">TENDER</option>
+          <option value="Project">PROJECT</option>
+        </select><br>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+        <label>Client Type</label>
+      </div>
+      <div class="col-75">
+      <select v-model="cust">
+        <option value=0>NEW</option>
+        <option value=1>EXISTING</option>
+      </select><br>
+      </div>
+      </div>
+      <div class="row" >
+        <div class="col-25">
+        <label>Client Name</label>
+      </div>
+      <div class="col-75" >
+        <input type="text" name="" v-model="cname" v-if="cust==0">
+        <div class="" v-if="cust==1">
+          <select v-model="cname">
+              <option v-for="custom in customerObj" v-bind:value="custom.Name">{{custom.Name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-25">
+        <label>Due Date</label>
+      </div>
+      <div class="col-75">
+        <input type="date" name="pass" id="pass" v-model="date1"><br><br>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+        <label>Assign Engineer</label>
+      </div>
+      <div class="col-75" >
+          <select v-model="uname">
+              <option v-for="user in userObj" v-bind:value="user.Name">{{user.Name}}</option>
+          </select>
+
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-25">
+        <label>Follow up Frequency</label>
+      </div>
+      <div class="col-75">
+        <select v-model="follow">
+          <option value="Twice a Day">Twice a Day</option>
+          <option value="Once a Day">Once a Day</option>
+          <option value="Twice a Week">Twice a Week</option>
+          <option value="Once a Week">Once a Week</option>
+        </select><br>
+      </div>
+    </div>
+    <input type="submit" class="col-50" name="button" value="Assign Enquiry" v-on:click.prevent="assign()">
+
+        <input type="submit"  class="col-50" name="button" id="btn3" style="background:red" value="Regret Message" v-on:click="think()">
+
+</form>
+<!--
+<input type="submit"  class="col-30" name="button" id="btn8" style="background:red" value="open a file" v-on:click="think1()">
+-->
+    </div>
+    <script type="text/javascript" src="../js/form.js">
+
+    </script>
+  </body>
+</html>

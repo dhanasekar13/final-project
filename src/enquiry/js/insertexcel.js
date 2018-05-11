@@ -66,6 +66,8 @@ function windowreload(){
 }
 function insertEnquiry(data){
 function a(){
+
+  var workbook = new Excel.Workbook()
   return new Promise(function(resolve,reject){
   workbook.xlsx.readFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
       .then(function(){
@@ -112,6 +114,7 @@ function a(){
 }
 function b(){
 
+  var workbook1 = new Excel.Workbook()
     return new Promise(function(resolve,reject){
       workbook1.xlsx.readFile('src/excel/assigneng.xlsx')
         .then(function(){
@@ -127,6 +130,8 @@ function b(){
 })
 }
 function c(){
+
+  var workbook = new Excel.Workbook()
   return new Promise(function(resolve,reject){
     workbook.xlsx.readFile('src/excel/customer.xlsx')
         .then(function(){

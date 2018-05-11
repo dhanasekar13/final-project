@@ -40,7 +40,7 @@ var ap=new Vue({
         assengPromise.then(function(result){
           var length = result.length;
           var code = result[length-1][2]
-          var number =parseInt(code.slice(5))
+          var number =parseInt(code.slice(5))+1
           var code1=code.slice(0,5)
           if(number<10){
             code1=code1+'00'
@@ -60,7 +60,7 @@ var ap=new Vue({
         assengPromise.then(function(result){
           var length = result.length;
           var code = result[length-1][2]
-          var number =parseInt(code.slice(5))
+          var number =parseInt(code.slice(5))+1
           var code1=code.slice(0,5)
           if(number<10){
             code1=code1+'00'

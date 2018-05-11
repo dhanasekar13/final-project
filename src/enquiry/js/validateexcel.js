@@ -4,18 +4,19 @@ var storage = require('electron-json-storage')
 
 
 function assengidvalue(data){
-  return new Promise(function(resolve,reject){
+
     let arr6=[]
-  workbook.xlsx.readFile('src/excel/assigneng.xlsx')
+    var workbook1 = new Excel.Workbook()
+  workbook1.xlsx.readFile('src/excel/assigneng.xlsx')
     .then(function(){
       let worksheet = workbook.getWorksheet(1)
       worksheet.eachRow(function(row,rowNumber){
+        console.log(row+rowNumber)
         if(row.values[1]==data){
-          arr6.push(rowNumber)
+          worksheet.spliceRows(rowNumber,1)
     }
       })
-      resolve(arr6)
-    })
+        return workbook1.xlsx.writeFile('src/excel/assigneng.xlsx')
 })
 }
 function validate(){

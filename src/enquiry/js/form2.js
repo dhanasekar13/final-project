@@ -78,9 +78,6 @@ var ap=new Vue({
     }
   },
   methods:{
-    del:function(){
-      insert.delete(ap.assignengid)
-    },
     submitted:function(){
 
         if((ap.offerNo=='')||(ap.offerNo==0)||(ap.cdetails=='')){
@@ -95,8 +92,8 @@ var ap=new Vue({
       if(((ap.cno==0)||(ap.cno==''))&&(ap.cemail!='')){
         ap.modeofenquiry='email'
       }
-      else if ((ap.cno!=0)||(ap.cno!='')&&(cemail=='')) {
-        ap.modeofenquiry='number'
+      else if ((ap.cno!=0)||(ap.cno!='')&&(ap.cemail=='')) {
+        ap.modeofenquiry='phone'
       }
       else{
       ap.modeofenquiry=''
@@ -123,13 +120,11 @@ var ap=new Vue({
       this.cname=''
       this.cperson=''
       this.ptype=''
-      this.cno='',
-      this.cemail='',
-      this.cdetails='',
+      this.cno=''
+      this.cemail=''
+      this.cdetails=''
       this.assiengname=''
-    }
-   this.del()
-
+            }
     },
 
     choose:function(val){
@@ -140,15 +135,6 @@ var ap=new Vue({
       ap.assiengmode=val[6]
       ap.assiengfreq=val[5]
       ap.duedate=val[4]
-    },
-    enquiry:function(){
-    /*
-      assengPromise=val.asseng(ap.assid)
-      assengPromise.then(function(result){
-        console.log(result)
-      ap.assengObj=  ap.convertToArray(result)
-    })
-*/
     },
     think:function(){
       alert("have to think to do the logic of emailing")

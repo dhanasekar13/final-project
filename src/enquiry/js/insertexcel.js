@@ -126,9 +126,33 @@ function b(){
     })
 })
 }
+function c(){
+  return new Promise(function(resolve,reject){
+    workbook.xlsx.readFile('src/excel/customer.xlsx')
+        .then(function(){
+            var worksheet = workbook.getWorksheet('Sheet1')
+          var lastRow   = worksheet.lastRow;
+          var currentRow = lastRow._number ;
+            var row1 ='customer'+currentRow
+            var row2=data.clname;
+            var row3= data.cperson
+            var row4=data.phone;
+            var row5=data.email;
+            var row6 = data.pdetail;
+
+            var row=[
+              [row1,row2,row3,row4,row5,row6]
+            ]
+            console.log(row)
+            worksheet.addRows(row)
+
+          resolve(workbook.xlsx.writeFile('src/excel/customer.xlsx'))
+  })
+})
+}
 a()
   b()
-
+c()
 
 }
 

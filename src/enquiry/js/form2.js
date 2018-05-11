@@ -112,7 +112,9 @@ var ap=new Vue({
         enqdate:new Date(),
         duedate:ap.duedate,
         pdetail:ap.cdetails,
-        engid:ap.assignengid
+        engid:ap.assignengid,
+        phone:ap.cno,
+        email:ap.cemail
       }
       console.log(full)
       insert.insertEnqui(full)

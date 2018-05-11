@@ -108,6 +108,7 @@ assignerId:function(){
 customer:function(){
   val.cust().then(function(data){
     ap.customerObj =ap.convertToArray(data)
+    console.log(ap.customer)
   })
 },
 user1:function(){

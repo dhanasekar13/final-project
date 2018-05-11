@@ -1,5 +1,7 @@
 var Excel = require('exceljs')
 var workbook = new Excel.Workbook()
+
+var workbook1 = new Excel.Workbook()
 var val = require('./validateexcel')
 
 function insertAssigner(data){
@@ -43,15 +45,10 @@ function record(){
 
 function deletefield(data){
   console.log("iunsert tela "+data)
-  var value= val.idval(data)
-    value.then(function(da)
-    {
-      console.log("The row are is"+da)
-      deletework(da)
-      windowreload()
-    })
-}
+   value= val.idval(data)
 
+}
+/*
 function deletework(data){
  workbook.xlsx.readFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
         .then(function(){
@@ -63,11 +60,13 @@ function deletework(data){
         })
 
 }
+*/
 function windowreload(){
 
 }
 function insertEnquiry(data){
-
+function a(){
+  return new Promise(function(resolve,reject){
   workbook.xlsx.readFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
       .then(function(){
           var worksheet = workbook.getWorksheet('Sheet2')
@@ -83,7 +82,7 @@ function insertEnquiry(data){
           var row8 = data.enqdate;
           var row9=data.duedate;
           var row10=''
-          var row11=data.enquiry;
+          var row11=data.pdetail;
           var row12=''
           var row13 =''
           var row14 =''
@@ -106,9 +105,54 @@ function insertEnquiry(data){
           console.log(row)
           worksheet.addRows(row)
 
-          return workbook.xlsx.writeFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
+        resolve(workbook.xlsx.writeFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx'))
+})
+})
 
-      })
+}
+function b(){
+
+    return new Promise(function(resolve,reject){
+      workbook1.xlsx.readFile('src/excel/assigneng.xlsx')
+        .then(function(){
+          let worksheet = workbook1.getWorksheet(1)
+          worksheet.eachRow(function(row,rowNumber){
+            console.log(row+rowNumber)
+            if(row.values[1]==data.engid){
+              worksheet.spliceRows(rowNumber,1)
+        }
+          })
+            resolve(workbook1.xlsx.writeFile('src/excel/assigneng.xlsx'))
+    })
+})
+}
+function c(){
+  return new Promise(function(resolve,reject){
+    workbook.xlsx.readFile('src/excel/customer.xlsx')
+        .then(function(){
+            var worksheet = workbook.getWorksheet('Sheet1')
+          var lastRow   = worksheet.lastRow;
+          var currentRow = lastRow._number ;
+            var row1 ='customer'+currentRow
+            var row2=data.clname;
+            var row3= data.cperson
+            var row4=data.phone;
+            var row5=data.email;
+            var row6 = data.pdetail;
+
+            var row=[
+              [row1,row2,row3,row4,row5,row6]
+            ]
+            console.log(row)
+            worksheet.addRows(row)
+
+          resolve(workbook.xlsx.writeFile('src/excel/customer.xlsx'))
+  })
+})
+}
+a()
+  b()
+c()
 
 }
 
@@ -117,5 +161,5 @@ function insertEnquiry(data){
 module.exports={
   insertAssigner:insertAssigner,
   insertEnqui:insertEnquiry,
-  delete:deletefield
+  delete1:deletefield
 }

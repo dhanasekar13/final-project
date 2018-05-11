@@ -4,21 +4,23 @@ var storage = require('electron-json-storage')
 
 
 function assengidvalue(data){
-  return new Promise(function(resolve,reject){
+
     let arr6=[]
-  workbook.xlsx.readFile('src/excel/assigneng.xlsx')
+    var workbook1 = new Excel.Workbook()
+  workbook1.xlsx.readFile('src/excel/assigneng.xlsx')
     .then(function(){
       let worksheet = workbook.getWorksheet(1)
       worksheet.eachRow(function(row,rowNumber){
+        console.log(row+rowNumber)
         if(row.values[1]==data){
-          arr6.push(rowNumber)
+          worksheet.spliceRows(rowNumber,1)
     }
       })
-      resolve(arr6)
-    })
+        return workbook1.xlsx.writeFile('src/excel/assigneng.xlsx')
 })
 }
 function validate(){
+  var workbook = new Excel.Workbook();
 return new Promise((resolve,reject)=>{
 
   let arr1=[]
@@ -34,7 +36,7 @@ workbook.xlsx.readFile('src/excel/login.xlsx')
 });
 }
 function customer(){
-
+var workbook = new Excel.Workbook();
 return  new Promise(function(resolve,reject){
     let arr2=[]
   workbook.xlsx.readFile('src/excel/customer.xlsx')
@@ -50,7 +52,7 @@ return  new Promise(function(resolve,reject){
 
 
 function assigner(data){
-
+var workbook = new Excel.Workbook();
   return new Promise(function(resolve,reject){
     let arr3=[]
   workbook.xlsx.readFile('src/excel/assigneng.xlsx')
@@ -79,7 +81,7 @@ function setstorage(val,val1){
   })
 }
 function user(){
-
+var workbook = new Excel.Workbook();
   return new  Promise(function(resolve,reject){
     var arr5=[]
     workbook.xlsx.readFile('src/excel/login.xlsx')
@@ -94,6 +96,7 @@ function user(){
 }
 
 function assigned(data){
+  var workbook = new Excel.Workbook();
 return  new Promise(function(resolve,reject){
     let arr6=[]
   workbook.xlsx.readFile('src/excel/assigneng.xlsx')
@@ -109,7 +112,7 @@ return  new Promise(function(resolve,reject){
   });
 }
 function enquiryProject(){
-
+var workbook = new Excel.Workbook();
   return  new Promise(function(resolve,reject){
     let arr7=[]
   workbook.xlsx.readFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
@@ -127,7 +130,7 @@ function enquiryProject(){
 
 
 function enquiryTrading(){
-
+var workbook = new Excel.Workbook();
   return new Promise(function(resolve,reject){
       let arr8=[]
   workbook.xlsx.readFile('src/excel/Project Enquiry Register - 18-19 Template.xlsx')
